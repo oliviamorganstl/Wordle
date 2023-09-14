@@ -13,9 +13,17 @@ from WordleGraphics import WordleGWindow, N_COLS, N_ROWS
 
 def wordle():
 
-    def enter_action(s): #I think this method is for user actions
-        #gw.show_message("You have to implement this method.") commented out for now
-        pass
+    def enter_action(s):
+
+        s = s.lower()  # Convert the entered word to lowercase for case-insensitive comparison
+        
+        if s in FIVE_LETTER_WORDS:
+            gw.show_message("Congratulations! You guessed a valid word: " + s)
+            if s == selected_word.lower():
+                gw.show_message("You've won! The word was: " + selected_word)
+
+        else:
+            gw.show_message("Not in word list")
 
     def select_random_word(word_list): #Brings in the 5 letter words as a parameter then picks one.
         random_word = random.choice(word_list)

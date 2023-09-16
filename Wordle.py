@@ -9,37 +9,66 @@ BE SURE TO UPDATE THIS COMMENT WHEN YOU WRITE THE CODE.
 import random
 
 from WordleDictionary import FIVE_LETTER_WORDS
-from WordleGraphics import WordleGWindow, N_COLS, N_ROWS
+from WordleGraphics import WordleGWindow, N_COLS, N_ROWS, CORRECT_COLOR, PRESENT_COLOR, MISSING_COLOR
 
 def wordle():
-
-    def enter_action(s):
-
-        s = s.lower()  # Convert the entered word to lowercase for case-insensitive comparison
-        
-        if s in FIVE_LETTER_WORDS:
-            gw.show_message("Congratulations! You guessed a valid word: " + s)
-            if s == selected_word.lower():
-                gw.show_message("You've won! The word was: " + selected_word)
-
-        else:
-            gw.show_message("Not in word list")
-
-    def select_random_word(word_list): #Brings in the 5 letter words as a parameter then picks one.
-        random_word = random.choice(word_list)
-        return random_word
-
-
-    selected_word = select_random_word(FIVE_LETTER_WORDS)
+    gw = WordleGWindow()
+    selected_word = random.choice(FIVE_LETTER_WORDS)
+    selected_word = selected_word.lower()
     print("Randomly selected word:", selected_word) #Prints the five letter word in the console, not necessary for production but helping for testing.
 
+    def enter_action(s):
+        current_row = gw.get_current_row()
+        s = s.lower()  # Convert the entered word to lowercase for case-insensitive comparison
 
-    gw = WordleGWindow()
+        if s == "":
+            # If the input string is empty or contains only whitespace, do nothing
+            return
+        #Gathers array of letters
+        correct_letter = []
+        present_letter = []
+        missing_letter = []
+        if s in FIVE_LETTER_WORDS:
+            if s == selected_word:
+                for col in range(N_COLS):
+                    guess_letter = s[col]
+                    word_letter = selected_word[col]
+
+                    if guess_letter == word_letter: 
+                        correct_letter.append(col)
+                    for col in correct_letter:
+                        gw.set_square_color(gw.get_current_row(), col, CORRECT_COLOR)
+                gw.show_message("You've won! The word was: " + selected_word)
+            else:
+                if gw.get_current_row() > 4 :
+                    gw.show_message("Game over")
+
+            # Determine the colors for each square
+
+                for col in range(N_COLS):
+                    guess_letter = s[col]
+                    word_letter = selected_word[col]
+
+                    if guess_letter == word_letter: 
+                        correct_letter.append(col)
+                    elif guess_letter in selected_word:
+                        present_letter.append(col)
+                    else:
+                        missing_letter.append(col)
+                #loops through arrays to color letters
+                for col in correct_letter:
+                    gw.set_square_color(gw.get_current_row(), col, CORRECT_COLOR)
+                for col in present_letter:
+                    gw.set_square_color(gw.get_current_row(), col, PRESENT_COLOR)
+                for col in missing_letter:
+                    gw.set_square_color(gw.get_current_row(), col, MISSING_COLOR)
+                gw.show_message("Try Again")
+            gw.set_current_row(gw.get_current_row() + 1)
+        else:
+            gw.show_message("Not a valid word")
+
     gw.add_enter_listener(enter_action)
 
-    for i in range(len(selected_word)): #i is the column number
-        letter = selected_word[i]
-        gw.set_square_letter(0, i, letter) #we are assuming row 0 in the parameter
 
 # Startup code
 

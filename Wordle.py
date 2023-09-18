@@ -5,7 +5,6 @@
 This module is the starter file for the Wordle assignment.
 BE SURE TO UPDATE THIS COMMENT WHEN YOU WRITE THE CODE.
 """
-
 import random
 
 from WordleDictionary import FIVE_LETTER_WORDS
@@ -40,9 +39,6 @@ def wordle():
                         gw.set_square_color(gw.get_current_row(), col, CORRECT_COLOR)
                 gw.show_message("You've won! The word was: " + selected_word)
             else:
-                if gw.get_current_row() > 4 :
-                    gw.show_message("Game over")
-
             # Determine the colors for each square
 
                 for col in range(N_COLS):
@@ -62,13 +58,14 @@ def wordle():
                     gw.set_square_color(gw.get_current_row(), col, PRESENT_COLOR)
                 for col in missing_letter:
                     gw.set_square_color(gw.get_current_row(), col, MISSING_COLOR)
-                gw.show_message("Try Again")
+                if gw.get_current_row() == 5 : #if you change to add an = it says game over but doesnt color the boxes
+                    gw.show_message("Game over")
+                else: gw.show_message("Try Again")
             gw.set_current_row(gw.get_current_row() + 1)
         else:
             gw.show_message("Not a valid word")
 
     gw.add_enter_listener(enter_action)
-
 
 # Startup code
 

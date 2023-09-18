@@ -58,7 +58,8 @@ def wordle():
                     gw.set_square_color(gw.get_current_row(), col, PRESENT_COLOR)
                 for col in missing_letter:
                     gw.set_square_color(gw.get_current_row(), col, MISSING_COLOR)
-                if gw.get_current_row() == 5 : #if you change to add an = it says game over but doesnt color the boxes
+                    
+                if gw.get_current_row() == 5 :
                     gw.show_message("Game over")
                 else: gw.show_message("Try Again")
             gw.set_current_row(gw.get_current_row() + 1)

@@ -9,7 +9,7 @@ import atexit
 import math
 import time
 import tkinter
-from Wordle import CORRECT_COLOR, PRESENT_COLOR, MISSING_COLOR
+#from Wordle import CORRECT_COLOR, PRESENT_COLOR, MISSING_COLOR
 
 # Constants
 

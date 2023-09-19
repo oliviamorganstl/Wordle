@@ -1,16 +1,37 @@
 # File: Wordle.py
-#Hey there
-#test test test 
-"""
-This module is the starter file for the Wordle assignment.
-BE SURE TO UPDATE THIS COMMENT WHEN YOU WRITE THE CODE.
-"""
+
 import random
 
 from WordleDictionary import FIVE_LETTER_WORDS
-from WordleGraphics import WordleGWindow, N_COLS, N_ROWS, CORRECT_COLOR, PRESENT_COLOR, MISSING_COLOR
+from WordleGraphics import WordleGWindow, N_COLS, N_ROWS
+
+
+# Define the default color scheme using the provided hex codes
+CORRECT_COLOR_DEFAULT = "#66BB66"       # Light green for correct letters
+PRESENT_COLOR_DEFAULT = "#CCBB66"       # Brownish yellow for misplaced letters
+MISSING_COLOR_DEFAULT = "#999999"       # Gray for letters that don't appear
+
+def select_color_scheme():
+    global CORRECT_COLOR, PRESENT_COLOR, MISSING_COLOR
+    print("Select a color scheme:")
+    print("1. Default")
+    print("2. Alternate")
+    
+    while True:
+        choice = input("Enter 1 or 2: ")
+        if choice == '1':
+            CORRECT_COLOR, PRESENT_COLOR, MISSING_COLOR = CORRECT_COLOR_DEFAULT, PRESENT_COLOR_DEFAULT, MISSING_COLOR_DEFAULT
+            return
+        elif choice == '2':
+            CORRECT_COLOR = "#3366FF"       # Alternate: Blue
+            PRESENT_COLOR = "#FF9900"       # Alternate: Orange
+            MISSING_COLOR = "#808080"       # Alternate: Medium gray
+            return
+        else:
+            print("Invalid choice. Please enter 1 or 2.")
 
 def wordle():
+    select_color_scheme()
     gw = WordleGWindow()
     selected_word = random.choice(FIVE_LETTER_WORDS)
     selected_word = selected_word.lower()

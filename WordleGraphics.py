@@ -64,7 +64,6 @@ class WordleGWindow:
 
     def __init__(self):
         """Creates the Wordle window."""
-
         def create_grid():
             return [
                 [
@@ -171,6 +170,7 @@ class WordleGWindow:
         self._row = 0
         self._col = 0
         atexit.register(start_event_loop)
+
 
     def get_square_letter(self, row, col):
         return self._grid[row][col].get_letter()

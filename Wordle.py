@@ -10,6 +10,7 @@ from WordleGraphics import WordleGWindow, N_COLS, N_ROWS
 CORRECT_COLOR_DEFAULT = "#66BB66"       # Light green for correct letters
 PRESENT_COLOR_DEFAULT = "#CCBB66"       # Brownish yellow for misplaced letters
 MISSING_COLOR_DEFAULT = "#999999"       # Gray for letters that don't appear
+UNKNOWN_COLOR = "#FFFFFF"       # Undetermined letters are white
 
 def select_color_scheme():
     global CORRECT_COLOR, PRESENT_COLOR, MISSING_COLOR
@@ -29,6 +30,8 @@ def select_color_scheme():
             return
         else:
             print("Invalid choice. Please enter 1 or 2.")
+
+
 
 def wordle():
     select_color_scheme()
@@ -59,6 +62,8 @@ def wordle():
                     for col in correct_letter:
                         gw.set_square_color(gw.get_current_row(), col, CORRECT_COLOR)
                 gw.show_message("You've won! The word was: " + selected_word)
+                replay_wordle(gw)
+
             else:
             # Determine the colors for each square
 
@@ -82,6 +87,8 @@ def wordle():
 
                 if gw.get_current_row() == 5 :
                     gw.show_message("Game over")
+                    replay_wordle(gw)
+
                 else: 
                     gw.show_message("Try Again")
                     gw.set_current_row(gw.get_current_row() + 1)
@@ -90,7 +97,25 @@ def wordle():
 
     gw.add_enter_listener(enter_action)
 
-# Startup code
+# Reset the board for a new game
+def reset_board(gw):
+    gw.show_message("")
+
+    for row in range(N_ROWS):
+        for col in range(N_COLS):
+            gw.set_square_letter(row, col, " ")
+            gw.set_square_color(row, col, UNKNOWN_COLOR)
+
+# Replay the Wordle game
+def replay_wordle(gw):
+    replay = input("Do you want to play again? (yes/no): ").lower()
+    if replay == "yes":
+        #reset_board(gw) clears the words from the screen
+        wordle()
+    else:
+        gw.show_message("Thanks for playing!")
+
+
 
 if __name__ == "__main__":
     wordle()

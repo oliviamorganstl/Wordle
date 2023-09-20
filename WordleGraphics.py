@@ -9,6 +9,8 @@ import atexit
 import math
 import time
 import tkinter
+from tkinter import Tk, Canvas, Button  # Modify the import
+
 #from Wordle import CORRECT_COLOR, PRESENT_COLOR, MISSING_COLOR
 
 # Constants
@@ -71,6 +73,7 @@ class WordleGWindow:
                 ] for i in range(N_ROWS)
             ]
 
+
         def create_keyboard():
             keys = { }
             nk = len(KEY_LABELS[0])
@@ -94,6 +97,7 @@ class WordleGWindow:
             return WordleMessage(self._canvas,
                                  CANVAS_WIDTH / 2,
                                  MESSAGE_Y)
+
 
         def key_action(tke):
             if isinstance(tke, str):
@@ -169,8 +173,18 @@ class WordleGWindow:
         root.bind("<ButtonRelease-1>", release_action)
         self._row = 0
         self._col = 0
-        atexit.register(start_event_loop)
 
+        # Create a button and associate it with the new_game_button function
+        self._click_button = Button(root, text="New Game", command=self.new_game_button)
+        self._click_button.pack(side="left", padx=(100, 10), pady=10)  # Pack the button at the bottom
+        # Create a button and associate it with the color_scheme_button function
+        self._click_button = Button(root, text="Color Scheme", command=self.color_scheme_button)
+        self._click_button.pack(side="left", padx=10, pady=10)  # Pack the button at the bottom
+        # Create a button and associate it with the share results button
+        self._click_button = Button(root, text="Share Results", command=self.share_results_button)
+        self._click_button.pack(side="left", padx=(10, 100), pady=10)  # Pack the button at the bottom
+
+        atexit.register(start_event_loop)
 
     def get_square_letter(self, row, col):
         return self._grid[row][col].get_letter()
@@ -205,6 +219,19 @@ class WordleGWindow:
 
     def show_message(self, msg, color="Black"):
         self._message.set_text(msg, color)
+                
+    def new_game_button(self):
+        # Handle button click event here
+        wordle()
+        pass
+
+    def color_scheme_button(self):
+        #
+        pass
+
+    def share_results_button(self):
+        #
+        pass
 
 
 class WordleSquare:
@@ -216,13 +243,13 @@ class WordleSquare:
         y1 = y0 + SQUARE_SIZE
         self._canvas = canvas
         self._ch = " "
-        self._color = UNKNOWN_COLOR;
+        self._color = UNKNOWN_COLOR
         self._frame = canvas.create_rectangle(x0, y0, x1, y1)
         self._text = canvas.create_text(x0 + SQUARE_SIZE / 2,
                                         y0 + SQUARE_SIZE / 2,
                                         text=self._ch,
                                         font=SQUARE_FONT)
-
+    
     def get_letter(self):
         return self._ch
 

@@ -241,8 +241,16 @@ class WordleGWindow:
 
 
     def share_results_button(self):
-        from Wordle import share_results
-        share_results()
+        # Iterate through all rows and columns and clear the letters
+        for row in range(N_ROWS):
+            for col in range(N_COLS):
+                self.set_square_letter(row, col, " ")
+
+        # Show a message instructing the user to take a screenshot
+        self.show_message("Screenshot to share with your friends!")
+
+        # Redraw the canvas to update the changes
+        self._canvas.update()
 
 
 

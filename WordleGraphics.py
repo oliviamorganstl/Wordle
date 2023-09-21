@@ -11,16 +11,15 @@ import time
 import tkinter
 from tkinter import Tk, Canvas, Button  # Modify the import
 
-#from Wordle import CORRECT_COLOR, PRESENT_COLOR, MISSING_COLOR
 
 # Constants
 
 N_ROWS = 6			# Number of rows
 N_COLS = 5			# Number of columns
 
-# CORRECT_COLOR = "#66BB66"       # Light green for correct letters
-# PRESENT_COLOR = "#CCBB66"       # Brownish yellow for misplaced letters
-# MISSING_COLOR = "#999999"       # Gray for letters that don't appear
+CORRECT_COLOR = "#66BB66"       # Light green for correct letters
+PRESENT_COLOR = "#CCBB66"       # Brownish yellow for misplaced letters
+MISSING_COLOR = "#999999"       # Gray for letters that don't appear
 UNKNOWN_COLOR = "#FFFFFF"       # Undetermined letters are white
 KEY_COLOR = "#DDDDDD"           # Keys are colored light gray
 
@@ -66,6 +65,9 @@ class WordleGWindow:
 
     def __init__(self):
         """Creates the Wordle window."""
+
+    
+
         def create_grid():
             return [
                 [
@@ -176,13 +178,16 @@ class WordleGWindow:
 
         # Create a button and associate it with the new_game_button function
         self._click_button = Button(root, text="New Game", command=self.new_game_button)
-        self._click_button.pack(side="left", padx=(100, 10), pady=10)  # Pack the button at the bottom
-        # Create a button and associate it with the color_scheme_button function
-        self._click_button = Button(root, text="Color Scheme", command=self.color_scheme_button)
+        self._click_button.pack(side="left", padx=(40, 10), pady=10)  # Pack the button at the bottom
+        # Create a button and associate it with the new color_scheme_button function
+        self._click_button = Button(root, text="New Color Scheme", command=self.new_color_scheme_button)
+        self._click_button.pack(side="left", padx=10, pady=10)  # Pack the button at the bottom
+        # Create a button and associate it with the default color scheme button
+        self._click_button = Button(root, text="Default Color Scheme", command=self.default_color_scheme_button)
         self._click_button.pack(side="left", padx=10, pady=10)  # Pack the button at the bottom
         # Create a button and associate it with the share results button
         self._click_button = Button(root, text="Share Results", command=self.share_results_button)
-        self._click_button.pack(side="left", padx=(10, 100), pady=10)  # Pack the button at the bottom
+        self._click_button.pack(side="left", padx=(10, 40), pady=10)  # Pack the button at the bottom
 
         atexit.register(start_event_loop)
 
@@ -219,19 +224,26 @@ class WordleGWindow:
 
     def show_message(self, msg, color="Black"):
         self._message.set_text(msg, color)
-                
+
+    
     def new_game_button(self):
         # Handle button click event here
+        from Wordle import wordle
         wordle()
-        pass
 
-    def color_scheme_button(self):
-        #
-        pass
+    def default_color_scheme_button(self):
+        from Wordle import select_default_color_scheme
+        select_default_color_scheme()
+
+    def new_color_scheme_button(self):
+        from Wordle import select_new_color_scheme
+        select_new_color_scheme()
+
 
     def share_results_button(self):
-        #
-        pass
+        from Wordle import share_results
+        share_results()
+
 
 
 class WordleSquare:

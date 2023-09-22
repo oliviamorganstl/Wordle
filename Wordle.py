@@ -94,9 +94,5 @@ def select_new_color_scheme():
     PRESENT_COLOR = "#FF9900"       # Alternate: Orange
     MISSING_COLOR = "#808080"       # Alternate: Medium gray
 
-def share_results(gw):
-    gw.show_message("Screenshot this page to share!") #This line of code doesnt work, idk why
-
-
 if __name__ == "__main__":
     wordle()

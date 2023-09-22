@@ -80,26 +80,6 @@ def wordle():
 
     gw.add_enter_listener(enter_action)
 
-# def select_default_color_scheme():
-#     global CORRECT_COLOR
-#     global PRESENT_COLOR
-#     global MISSING_COLOR
-#     CORRECT_COLOR = "#66BB66"       # Light green for correct letters
-#     PRESENT_COLOR = "#CCBB66"       # Brownish yellow for misplaced letters
-#     MISSING_COLOR = "#999999"       # Gray for letters that don't appear
-#     print("Func", CORRECT_COLOR)
-
-
-
-# def select_new_color_scheme():
-#     global CORRECT_COLOR
-#     global PRESENT_COLOR
-#     global MISSING_COLOR
-#     CORRECT_COLOR = "#3366FF"       # Alternate: Blue
-#     PRESENT_COLOR = "#FF9900"       # Alternate: Orange
-#     MISSING_COLOR = "#808080"       # Alternate: Medium gray
-#     print("Func", CORRECT_COLOR)
-           
 
 if __name__ == "__main__":
     wordle()

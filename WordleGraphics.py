@@ -10,16 +10,22 @@ import math
 import time
 import tkinter
 from tkinter import Tk, Canvas, Button  # Modify the import
-
-
+from colorconfig import (
+    DEFAULT_CORRECT_COLOR,
+    DEFAULT_PRESENT_COLOR,
+    DEFAULT_MISSING_COLOR,
+    NEW_CORRECT_COLOR,
+    NEW_PRESENT_COLOR,
+    NEW_MISSING_COLOR,
+    CURRENT_CORRECT_COLOR,
+    CURRENT_PRESENT_COLOR,
+    CURRENT_MISSING_COLOR,
+)
 # Constants
 
 N_ROWS = 6			# Number of rows
 N_COLS = 5			# Number of columns
 
-CORRECT_COLOR = "#66BB66"       # Light green for correct letters
-PRESENT_COLOR = "#CCBB66"       # Brownish yellow for misplaced letters
-MISSING_COLOR = "#999999"       # Gray for letters that don't appear
 UNKNOWN_COLOR = "#FFFFFF"       # Undetermined letters are white
 KEY_COLOR = "#DDDDDD"           # Keys are colored light gray
 
@@ -63,10 +69,9 @@ MESSAGE_Y = TOP_MARGIN + BOARD_HEIGHT + MESSAGE_SEP
 class WordleGWindow:
     """This class creates the Wordle window."""
 
-    def __init__(self):
+    def __init__(self, correct_color, present_color, missing_color):
         """Creates the Wordle window."""
-
-    
+        self.set_color_scheme(correct_color, present_color, missing_color)
 
         def create_grid():
             return [
@@ -191,6 +196,11 @@ class WordleGWindow:
 
         atexit.register(start_event_loop)
 
+    def set_color_scheme(self, correct_color, present_color, missing_color):
+        self.correct_color = correct_color
+        self.present_color = present_color
+        self.missing_color = missing_color
+        
     def get_square_letter(self, row, col):
         return self._grid[row][col].get_letter()
 
@@ -232,12 +242,14 @@ class WordleGWindow:
         wordle()
 
     def default_color_scheme_button(self):
-        from Wordle import select_default_color_scheme
-        select_default_color_scheme()
+        self.set_color_scheme(DEFAULT_CORRECT_COLOR, DEFAULT_PRESENT_COLOR, DEFAULT_MISSING_COLOR)
+        print("WordleGraph", self.correct_color)
+
 
     def new_color_scheme_button(self):
-        from Wordle import select_new_color_scheme
-        select_new_color_scheme()
+        self.set_color_scheme(NEW_CORRECT_COLOR, NEW_PRESENT_COLOR, NEW_MISSING_COLOR)
+        print("WordleGraph", self.correct_color)
+
 
 
     def share_results_button(self):
